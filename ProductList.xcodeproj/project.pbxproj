@@ -17,6 +17,8 @@
 		73A9750427DB8E6900D826B7 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A9750327DB8E6900D826B7 /* Product.swift */; };
 		73A9750727DBA61A00D826B7 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A9750627DBA61A00D826B7 /* NetworkService.swift */; };
 		73A9750927DBA9C300D826B7 /* NetworkDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A9750827DBA9C300D826B7 /* NetworkDataFetcher.swift */; };
+		73AA94E727DCE64B008C2C26 /* HeaderTableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 73AA94E627DCE64B008C2C26 /* HeaderTableView.xib */; };
+		73AA94E927DCE712008C2C26 /* HeaderTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73AA94E827DCE712008C2C26 /* HeaderTableView.swift */; };
 		73C1CF3427DCB60C00177C71 /* ProductListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 73C1CF3327DCB60C00177C71 /* ProductListCell.xib */; };
 		73C1CF3627DCB9DC00177C71 /* ProductListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C1CF3527DCB9DC00177C71 /* ProductListCell.swift */; };
 /* End PBXBuildFile section */
@@ -34,6 +36,8 @@
 		73A9750327DB8E6900D826B7 /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		73A9750627DBA61A00D826B7 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		73A9750827DBA9C300D826B7 /* NetworkDataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkDataFetcher.swift; sourceTree = "<group>"; };
+		73AA94E627DCE64B008C2C26 /* HeaderTableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeaderTableView.xib; sourceTree = "<group>"; };
+		73AA94E827DCE712008C2C26 /* HeaderTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderTableView.swift; sourceTree = "<group>"; };
 		73C1CF3327DCB60C00177C71 /* ProductListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductListCell.xib; sourceTree = "<group>"; };
 		73C1CF3527DCB9DC00177C71 /* ProductListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -49,6 +53,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		736D8EDD27DCE572004B2342 /* HeaderView */ = {
+			isa = PBXGroup;
+			children = (
+				73AA94E627DCE64B008C2C26 /* HeaderTableView.xib */,
+				73AA94E827DCE712008C2C26 /* HeaderTableView.swift */,
+			);
+			path = HeaderView;
+			sourceTree = "<group>";
+		};
 		73A974DF27DA29B300D826B7 = {
 			isa = PBXGroup;
 			children = (
@@ -119,6 +132,7 @@
 		73C1CF3027DCB5A700177C71 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				736D8EDD27DCE572004B2342 /* HeaderView */,
 				73C1CF3327DCB60C00177C71 /* ProductListCell.xib */,
 				73C1CF3527DCB9DC00177C71 /* ProductListCell.swift */,
 			);
@@ -186,6 +200,7 @@
 				73A974FB27DA29B400D826B7 /* LaunchScreen.storyboard in Resources */,
 				73C1CF3427DCB60C00177C71 /* ProductListCell.xib in Resources */,
 				73A974F827DA29B400D826B7 /* Assets.xcassets in Resources */,
+				73AA94E727DCE64B008C2C26 /* HeaderTableView.xib in Resources */,
 				73A974F327DA29B300D826B7 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -201,6 +216,7 @@
 				73A9750927DBA9C300D826B7 /* NetworkDataFetcher.swift in Sources */,
 				73A974F627DA29B300D826B7 /* ProductList.xcdatamodeld in Sources */,
 				73A9750427DB8E6900D826B7 /* Product.swift in Sources */,
+				73AA94E927DCE712008C2C26 /* HeaderTableView.swift in Sources */,
 				73A9750727DBA61A00D826B7 /* NetworkService.swift in Sources */,
 				73C1CF3627DCB9DC00177C71 /* ProductListCell.swift in Sources */,
 				73A974EC27DA29B300D826B7 /* AppDelegate.swift in Sources */,

@@ -22,7 +22,7 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Brand Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R5P-8M-MDi">
-                        <rect key="frame" x="159" y="49" width="94.5" height="21"/>
+                        <rect key="frame" x="159" y="49" width="357" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -49,6 +49,7 @@
                     <constraint firstItem="R5P-8M-MDi" firstAttribute="leading" secondItem="4RP-6o-twG" secondAttribute="trailing" constant="20" id="ams-SV-Eys"/>
                     <constraint firstItem="4RP-6o-twG" firstAttribute="centerY" secondItem="WlO-Q5-NOH" secondAttribute="centerY" id="cR2-5G-37E"/>
                     <constraint firstItem="4RP-6o-twG" firstAttribute="top" secondItem="WlO-Q5-NOH" secondAttribute="top" constant="20" id="lG4-Gb-wXL"/>
+                    <constraint firstAttribute="trailing" secondItem="R5P-8M-MDi" secondAttribute="trailing" constant="10" id="lpc-Yk-y5U"/>
                     <constraint firstAttribute="trailingMargin" secondItem="wqI-sP-0m2" secondAttribute="trailing" constant="5" id="wKt-OE-1hz"/>
                     <constraint firstItem="4RP-6o-twG" firstAttribute="leading" secondItem="WlO-Q5-NOH" secondAttribute="leading" constant="20" id="xkX-3A-Iwy"/>
                 </constraints>
