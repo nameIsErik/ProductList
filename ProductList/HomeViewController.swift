@@ -22,7 +22,7 @@ class HomeViewController: UIViewController {
     private func setupTableView() {
         productListTableView.delegate = self
         productListTableView.dataSource = self
-        productListTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        productListTableView.register(UINib(nibName: "ProductListCell", bundle: nil), forCellReuseIdentifier: "ProductListCell")
     }
 }
 
@@ -32,14 +32,17 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        var content = cell.defaultContentConfiguration()
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "ProductListCell", for: indexPath) as? ProductListCell else { fatalError("Error dequeuing cell") }
         
-        content.text = productArray?[indexPath.row].title
-        cell.contentConfiguration = content
+        if let product = productArray?[indexPath.row] {
+            cell.configure(title: product.title, price: product.price, iconURL: product.image)
+        }
         
         return cell
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
+    }
     
 }
