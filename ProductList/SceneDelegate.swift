@@ -1,10 +1,3 @@
-//
-//  SceneDelegate.swift
-//  ProductList
-//
-//  Created by Erik on 10.03.22.
-//
-
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
