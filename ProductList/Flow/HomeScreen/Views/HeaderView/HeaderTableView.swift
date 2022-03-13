@@ -7,7 +7,7 @@ class HeaderTableView: UITableViewHeaderFooterView {
     
     @IBOutlet weak var categorySegmentedControl: UISegmentedControl!
 
-    override class func awakeFromNib() {
+    override func awakeFromNib() {
         super.awakeFromNib()
     }
     
