@@ -19,6 +19,15 @@ class HomeViewController: UIViewController {
         }
     }
     
+    func setCategory(category: Category) {
+        NetworkDataFetcher().fetchProducts(urlString: category.urlString) { response in
+            guard let response = response else { return }
+            self.productArray = response
+            self.productListTableView.reloadData()
+        }
+
+    }
+    
     private func setupTableView() {
         productListTableView.delegate = self
         productListTableView.dataSource = self
@@ -44,6 +53,8 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "HeaderTableView") as? HeaderTableView else { return UIView() }
+        
+        header.configure(with: self)
         return header
     }
     

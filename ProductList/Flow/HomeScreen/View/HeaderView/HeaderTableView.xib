@@ -20,6 +20,9 @@
                         <segment title="Men"/>
                         <segment title="Women"/>
                     </segments>
+                    <connections>
+                        <action selector="categoryChanged:" destination="2pZ-NW-0JZ" eventType="valueChanged" id="oxo-ke-a21"/>
+                    </connections>
                 </segmentedControl>
             </subviews>
             <viewLayoutGuide key="safeArea" id="RqP-we-z4c"/>
