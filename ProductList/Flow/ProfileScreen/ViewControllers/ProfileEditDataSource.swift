@@ -1,13 +1,13 @@
 import UIKit
 
 class ProfileEditDataSource: NSObject {
-    typealias ProfileChangeAction = (Profile) -> Void
+    typealias ProfileChanged = (Profile) -> ()
     
-    enum ProfileSection: Int, CaseIterable {
+    enum ProfileEditRows: Int, CaseIterable {
         case name
         case lastName
-//        case secondName
-//        case email
+        case secondName
+        case email
         
         var displayText: String {
             switch self {
@@ -15,59 +15,61 @@ class ProfileEditDataSource: NSObject {
                 return "Name"
             case .lastName:
                 return "Last Name"
-//            case .secondName:
-//                return "Second Name"
-//            case .email:
-//                return "Email"
+            case .secondName:
+                return "Second Name"
+            case .email:
+                return "Email"
             }
         }
         
-        func cellIdentifier(for row: Int) -> String {
-            switch self {
-            case .name:
-                return "EditCell"
-            case .lastName:
-                return "EditCell"
-//            case .secondName:
-//                return "EditNameCell"
-//            case .email:
-//                return "EditNameCell"
-            }
-        }
     }
     
     private var profile: Profile
-    private var profileChangeAction: ProfileChangeAction?
+    private var profileChanged: ProfileChanged
     
-    init(profile: Profile, changeAction: @escaping ProfileChangeAction) {
+    init(profile: Profile, profileChanged: @escaping ProfileChanged) {
         self.profile = profile
-        self.profileChangeAction = changeAction
-    }
-    
-    private func dequeueAndConfigureCell(for indexPath: IndexPath, in tableView: UITableView) -> UITableViewCell {
-        guard let section = ProfileSection(rawValue: indexPath.row) else { fatalError() }
-        
-        let identifier = section.cellIdentifier(for: indexPath.row)
-        let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
-        
-        if let nameCell = cell as? EditCell {
-            nameCell.configure(name: profile.name) { name in
-                self.profile.name = name
-                self.profileChangeAction?(self.profile)
-            }
-        }
-        return cell
+        self.profileChanged = profileChanged
+        super.init()
     }
 }
 
 extension ProfileEditDataSource: UITableViewDataSource {
+    static let cellIdentifier = "EditCell"
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return ProfileSection.allCases.count
+        return ProfileEditRows.allCases.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return dequeueAndConfigureCell(for: indexPath, in: tableView)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: Self.cellIdentifier, for: indexPath) as? EditCell else { return UITableViewCell() }
+        
+        cell.contentView.backgroundColor = .darkGray
+        
+        guard let row = ProfileEditRows(rawValue: indexPath.row) else { fatalError() }
+        switch row {
+        case .name:
+            cell.configure(text: profile.name, placeholderText: row.displayText) { text in
+                self.profile.name = text
+                self.profileChanged(self.profile)
+            }
+        case .lastName:
+            cell.configure(text: profile.lastName, placeholderText: row.displayText) { text in
+                self.profile.lastName = text
+                self.profileChanged(self.profile)
+            }
+        case .secondName:
+            cell.configure(text: profile.secondName, placeholderText: row.displayText) { text in
+                self.profile.secondName = text
+                self.profileChanged(self.profile)
+            }
+        case .email:
+            cell.configure(text: profile.email, placeholderText: row.displayText) { text in
+                self.profile.email = text
+                self.profileChanged(self.profile)
+            }
+        }
+        
+        return cell
     }
-    
-    
 }

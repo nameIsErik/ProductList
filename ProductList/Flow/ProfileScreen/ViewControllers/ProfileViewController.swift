@@ -21,29 +21,30 @@ class ProfileViewController: UIViewController {
     }
     
     func transitionToViewMode(_ profile: Profile) {
-//        if let tempReminder = tempReminder {
-//            self.reminder = tempReminder
-//            self.tempReminder = nil
-//            reminderEditAction?(tempReminder)
-//            dataSource = ReminderDetailViewDataSource(reminder: tempReminder)
-//        } else {
-//            dataSource = ReminderDetailViewDataSource(reminder: reminder)
-//        }
         if let tempProfile = tempProfile {
             self.profile = tempProfile
             self.tempProfile = nil
-            profileEd
+            profileDataSource = ProfileViewDataSource(profile: tempProfile)
+        } else {
+            profileDataSource = ProfileViewDataSource(profile: profile)
         }
-        profileDataSource = ProfileViewDataSource(profile: profile)
         navigationItem.title = NSLocalizedString("Profile", comment: "profile nav title")
+        navigationItem.leftBarButtonItem = nil
+        editButtonItem.isEnabled = true
     }
     
     func transitionToEditMode(_ profile: Profile) {
-        profileDataSource = ProfileEditDataSource(profile: profile, changeAction: { profile in
-            self.profile = profile
+        profileDataSource = ProfileEditDataSource(profile: profile, profileChanged: { newProfile in
+            self.tempProfile = newProfile
             self.editButtonItem.isEnabled = true
         })
         navigationItem.title = NSLocalizedString("Edit Profile", comment: "edit profile nav title")
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelChanges))
+    }
+    
+    @objc func cancelChanges() {
+        self.tempProfile = nil
+        setEditing(false, animated: true)
     }
     
     override func setEditing(_ editing: Bool, animated: Bool) {
@@ -54,12 +55,13 @@ class ProfileViewController: UIViewController {
         
         if editing {
             transitionToEditMode(profile)
-            view.backgroundColor = .blue
+            view.backgroundColor = .darkGray
+            profileTableView.backgroundColor = .darkGray
         } else {
             transitionToViewMode(profile)
             view.backgroundColor = .gray
+            profileTableView.backgroundColor = .gray
         }
-        
         profileTableView.dataSource = profileDataSource
         profileTableView.reloadData()
     }

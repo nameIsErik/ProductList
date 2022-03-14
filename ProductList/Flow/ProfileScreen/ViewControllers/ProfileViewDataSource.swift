@@ -31,7 +31,7 @@ class ProfileViewDataSource: NSObject {
 
 
 extension ProfileViewDataSource: UITableViewDataSource {
-    static let profileCellIdentifier = "EditCell"
+    static let profileCellIdentifier = "ProfileCell"
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return ProfileRow.allCases.count
@@ -41,7 +41,10 @@ extension ProfileViewDataSource: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: Self.profileCellIdentifier, for: indexPath)
         let row = ProfileRow(rawValue: indexPath.row)
     
+        cell.backgroundColor = .lightGray
+        
         var content = cell.defaultContentConfiguration()
+        content.textProperties.alignment = .center
         
         content.text = row?.displayText(for: profile)
         
