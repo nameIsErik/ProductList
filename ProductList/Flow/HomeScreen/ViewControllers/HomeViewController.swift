@@ -4,6 +4,7 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var productListTableView: UITableView!
     
     var productArray: [Product]?
+    let networkService = NetworkService.shared
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -12,20 +13,23 @@ class HomeViewController: UIViewController {
         
         let urlString = "https://fakestoreapi.com/products"
         
-        NetworkDataFetcher().fetchProducts(urlString: urlString) { response in
+        NetworkDataFetcher().fetchProducts(urlString: urlString) { [weak self] response in
             guard let response = response else { return }
-            self.productArray = response
-            self.productListTableView.reloadData()
+            self?.productArray = response
+            DispatchQueue.main.async {
+                self?.productListTableView.reloadData()
+            }
         }
     }
     
     func setCategory(category: Category) {
-        NetworkDataFetcher().fetchProducts(urlString: category.urlString) { response in
+        NetworkDataFetcher().fetchProducts(urlString: category.urlString) { [weak self] response in
             guard let response = response else { return }
-            self.productArray = response
-            self.productListTableView.reloadData()
+            self?.productArray = response
+            DispatchQueue.main.async {
+                self?.productListTableView.reloadData()
+            }
         }
-
     }
     
     private func setupTableView() {
@@ -45,7 +49,22 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "ProductListCell", for: indexPath) as? ProductListCell else { fatalError("Error dequeuing cell") }
         
         if let product = productArray?[indexPath.row] {
-            cell.configure(title: product.title, price: product.price, iconURL: product.image)
+            cell.configure(title: product.title, price: product.price)
+            cell.image = nil
+            
+            let representedIdentifier = String(product.id)
+            cell.representedIdentifier = representedIdentifier
+            
+            networkService.image(product: product) { data, error in
+                if let data = data {
+                    let image = UIImage(data: data)
+                    DispatchQueue.main.async {
+                        if cell.representedIdentifier == representedIdentifier {
+                            cell.image = image
+                        }
+                    }
+                }
+            }
         }
         
         return cell

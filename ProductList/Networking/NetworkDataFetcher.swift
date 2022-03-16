@@ -2,7 +2,7 @@ import Foundation
 
 class NetworkDataFetcher {
 
-    let networkService = NetworkService()
+    let networkService = NetworkService.shared
     
     func fetchProducts(urlString: String, response: @escaping ([Product]?) -> Void) {
         networkService.request(urlString: urlString) { result in

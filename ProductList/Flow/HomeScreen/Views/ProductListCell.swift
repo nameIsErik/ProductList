@@ -6,19 +6,17 @@ class ProductListCell: UITableViewCell {
     @IBOutlet weak var iconImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
+    
+    var representedIdentifier: String = ""
+    
+    var image: UIImage? {
+        didSet {
+            iconImageView.image = image
+        }
+    }
 
-    func configure(title: String, price: Double, iconURL: URL) {
+    func configure(title: String, price: Double) {
         titleLabel.text = title
         priceLabel.text = String(price)
-        
-        URLSession.shared.dataTask(with: iconURL) { data, response, error in
-            if let data = data, error == nil {
-                DispatchQueue.main.async {
-                    self.iconImageView.image = UIImage(data: data)
-                }
-            } else {
-                fatalError("error: \(error)")
-            }
-        }.resume()
     }
 }
