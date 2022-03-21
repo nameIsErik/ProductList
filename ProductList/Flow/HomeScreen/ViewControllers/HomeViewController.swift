@@ -4,7 +4,11 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var productListTableView: UITableView!
     
     var productArray: [Product]?
+    var productArrayDB: [ProductDB]?
+    var session: Session?
+    
     let networkService = NetworkService.shared
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -12,13 +16,62 @@ class HomeViewController: UIViewController {
         setupTableView()
         
         let urlString = "https://fakestoreapi.com/products"
-        
-        NetworkDataFetcher().fetchProducts(urlString: urlString) { [weak self] response in
-            guard let response = response else { return }
-            self?.productArray = response
-            DispatchQueue.main.async {
-                self?.productListTableView.reloadData()
+        if NetworkMonitor.shared.isConnected {
+            NetworkDataFetcher().fetchProducts(urlString: urlString) { [weak self] response in
+                guard let response = response else { return }
+                self?.productArray = response
+//                if let productArray = self?.productArray {
+                
+                DispatchQueue.main.async {
+                    self?.productListTableView.reloadData()
+                }
             }
+        } else {
+            do {
+                session = try context.fetch(Session.fetchRequest()).last
+            } catch {
+                fatalError("here HERE ERIK HI JO HI")
+            }
+            
+            guard let session = session else { return }
+        
+            productArrayDB = DatabaseHelper().getAllProducts(in: session)
+
+            guard let productArrayDB = productArrayDB else {
+                return
+            }
+            
+            productArray = []
+            for productDB in productArrayDB {
+                productArray?.append(Product(id: Int(productDB.id), title: productDB.title!,
+                                             price: productDB.price, category: productDB.category!,
+                                             description: productDB.description, image: productDB.image!))
+            }
+            productListTableView.reloadData()
+        }
+    }
+    
+    func saveProductsToDB(products: [Product]) {
+        session = Session(context: context)
+        
+        for product in products {
+            let productDB = ProductDB(context: context)
+            productDB.id = Int64(product.id)
+            productDB.title = product.title
+            productDB.price = product.price
+            productDB.category = product.category
+            productDB.descriptionDB = product.description
+            productDB.image = product.image
+            productDB.session = session
+            
+            session?.addToProducts(productDB)
+        }
+        
+        do {
+            try context.save()
+        } catch let error {
+            print("ERROR SAVING CONTEXT: \(error)")
+            fatalError()
         }
     }
     

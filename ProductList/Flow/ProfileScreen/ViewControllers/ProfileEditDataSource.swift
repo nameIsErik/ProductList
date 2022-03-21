@@ -44,7 +44,7 @@ extension ProfileEditDataSource: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: Self.cellIdentifier, for: indexPath) as? EditCell else { return UITableViewCell() }
         
-        cell.contentView.backgroundColor = .darkGray
+        cell.contentView.backgroundColor = .white
         
         guard let row = ProfileEditRows(rawValue: indexPath.row) else { fatalError() }
         switch row {

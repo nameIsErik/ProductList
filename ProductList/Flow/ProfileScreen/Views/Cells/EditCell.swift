@@ -9,6 +9,8 @@ class EditCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         nameTextField.delegate = self
+        nameTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: nameTextField.frame.height))
+        nameTextField.leftViewMode = .always
     }
     
     func configure(text: String, placeholderText: String, textChanged: @escaping TextChanged) {

@@ -3,8 +3,10 @@ import UIKit
 class ProfileViewController: UIViewController {
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var profileTableView: UITableView!
+    @IBOutlet weak var addPhotoButton: UIButton!
     
-    private var profile: Profile? = Profile(name: "Leo", lastName: "last", secondName: "sec", email: "email")
+    private var profile: Profile? = Profile(name: "Leo", lastName: "last", secondName: "sec",
+                                            email: "email", photo: UIImage(named: "leo") ?? UIImage())
     private var tempProfile: Profile?
     private var profileDataSource: UITableViewDataSource?
     
@@ -25,8 +27,10 @@ class ProfileViewController: UIViewController {
             self.profile = tempProfile
             self.tempProfile = nil
             profileDataSource = ProfileViewDataSource(profile: tempProfile)
+            profileImageView.image = tempProfile.photo
         } else {
             profileDataSource = ProfileViewDataSource(profile: profile)
+            profileImageView.image = profile.photo
         }
         navigationItem.title = NSLocalizedString("Profile", comment: "profile nav title")
         navigationItem.leftBarButtonItem = nil
@@ -37,6 +41,7 @@ class ProfileViewController: UIViewController {
         profileDataSource = ProfileEditDataSource(profile: profile, profileChanged: { newProfile in
             self.tempProfile = newProfile
             self.editButtonItem.isEnabled = true
+            self.profileImageView.image = newProfile.photo
         })
         navigationItem.title = NSLocalizedString("Edit Profile", comment: "edit profile nav title")
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelChanges))
@@ -55,12 +60,14 @@ class ProfileViewController: UIViewController {
         
         if editing {
             transitionToEditMode(profile)
-            view.backgroundColor = .darkGray
-            profileTableView.backgroundColor = .darkGray
+            view.backgroundColor = .systemPink
+            profileTableView.backgroundColor = .systemPink
+            addPhotoButton.alpha = 1
         } else {
             transitionToViewMode(profile)
             view.backgroundColor = .gray
             profileTableView.backgroundColor = .gray
+            addPhotoButton.alpha = 0
         }
         profileTableView.dataSource = profileDataSource
         profileTableView.reloadData()
