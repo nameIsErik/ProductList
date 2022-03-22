@@ -20,7 +20,13 @@ class HomeViewController: UIViewController {
             NetworkDataFetcher().fetchProducts(urlString: urlString) { [weak self] response in
                 guard let response = response else { return }
                 self?.productArray = response
-//                if let productArray = self?.productArray {
+                
+                guard let productArray = self?.productArray else {
+                    return
+                }
+                self?.saveProductsToDB(products: productArray)
+            
+                
                 
                 DispatchQueue.main.async {
                     self?.productListTableView.reloadData()
@@ -109,8 +115,15 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             cell.representedIdentifier = representedIdentifier
             
             networkService.image(product: product) { data, error in
-                if let data = data {
-                    let image = UIImage(data: data)
+                if let data = data,
+                   let image = UIImage(data: data) {
+                     
+                    if !FilesManager.fileExists(at: FilesManager.fileUrl(named: product.image.lastPathComponent)) {
+                        DispatchQueue.global(qos: .background).async {
+                            FilesManager.store(image: image, forKey: product.image.lastPathComponent)
+                        }
+                    }
+                    
                     DispatchQueue.main.async {
                         if cell.representedIdentifier == representedIdentifier {
                             cell.image = image

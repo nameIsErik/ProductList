@@ -41,6 +41,11 @@ class NetworkService {
             return
         }
         
+        if FilesManager.fileExists(at: FilesManager.fileUrl(named: imageURL.lastPathComponent)) {
+            completion(FilesManager.retrieveImage(forKey: imageURL.lastPathComponent), nil)
+            return
+        }
+        
         let task = session.downloadTask(with: imageURL) { localURL, response, error in
             if let error = error {
                 completion(nil, error)
