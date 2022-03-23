@@ -4,10 +4,9 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var productListTableView: UITableView!
     
     var productArray: [Product]?
-    var productArrayDB: [ProductDB]?
-    var session: Session?
-    
     let networkService = NetworkService.shared
+    let databaseHelper = DatabaseHelper()
+    
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     override func viewDidLoad() {
@@ -21,66 +20,23 @@ class HomeViewController: UIViewController {
                 guard let response = response else { return }
                 self?.productArray = response
                 
-                guard let productArray = self?.productArray else {
-                    return
-                }
-                self?.saveProductsToDB(products: productArray)
-            
+                guard let productArray = self?.productArray else { return }
                 
+                self?.databaseHelper.saveProductsToDB(products: productArray)
                 
                 DispatchQueue.main.async {
                     self?.productListTableView.reloadData()
                 }
             }
         } else {
-            do {
-                session = try context.fetch(Session.fetchRequest()).last
-            } catch {
-                fatalError("here HERE ERIK HI JO HI")
-            }
             
-            guard let session = session else { return }
-        
-            productArrayDB = DatabaseHelper().getAllProducts(in: session)
-
-            guard let productArrayDB = productArrayDB else {
-                return
-            }
-            
-            productArray = []
-            for productDB in productArrayDB {
-                productArray?.append(Product(id: Int(productDB.id), title: productDB.title!,
-                                             price: productDB.price, category: productDB.category!,
-                                             description: productDB.description, image: productDB.image!))
-            }
+            guard let dataFromLastSession = DatabaseHelper().getDataFromLastSession() else { return }
+                    
+            productArray = databaseHelper.convertToProducts(from: dataFromLastSession)
             productListTableView.reloadData()
         }
     }
-    
-    func saveProductsToDB(products: [Product]) {
-        session = Session(context: context)
         
-        for product in products {
-            let productDB = ProductDB(context: context)
-            productDB.id = Int64(product.id)
-            productDB.title = product.title
-            productDB.price = product.price
-            productDB.category = product.category
-            productDB.descriptionDB = product.description
-            productDB.image = product.image
-            productDB.session = session
-            
-            session?.addToProducts(productDB)
-        }
-        
-        do {
-            try context.save()
-        } catch let error {
-            print("ERROR SAVING CONTEXT: \(error)")
-            fatalError()
-        }
-    }
-    
     func setCategory(category: Category) {
         NetworkDataFetcher().fetchProducts(urlString: category.urlString) { [weak self] response in
             guard let response = response else { return }
