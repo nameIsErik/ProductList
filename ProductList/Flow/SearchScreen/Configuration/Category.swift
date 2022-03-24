@@ -1,10 +1,23 @@
 import Foundation
 
-enum Category {
+enum Category: Int, CaseIterable {
     case men
     case women
     case jewelery
     case electronics
+    
+    func getText() -> String {
+        switch self {
+        case .men:
+            return "Men"
+        case .women:
+            return "Women"
+        case .jewelery:
+            return "Jewlery"
+        case .electronics:
+            return "Electronics"
+        }
+    }
     
     var urlString: String {
         switch self {

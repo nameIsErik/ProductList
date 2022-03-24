@@ -5,6 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="UIMenu" message="Requires Xcode 11 or later." minToolsVersion="11.0" requiredIntegratedClassName="UICommandDiff"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -199,10 +200,63 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="sZH-sN-hP9"/>
+                    <connections>
+                        <outlet property="categoryTableView" destination="juL-Fh-ZyH" id="f7y-Sw-ubp"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xlL-W1-ErX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1855.072463768116" y="800.89285714285711"/>
+        </scene>
+        <!--Search Result View Controller-->
+        <scene sceneID="cQs-Et-E3d">
+            <objects>
+                <viewController storyboardIdentifier="SearchResultViewController" id="55w-wt-xo8" customClass="SearchResultViewController" customModule="ProductList" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5Z0-4s-jcp">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="mGe-Gr-ZFL">
+                                <rect key="frame" x="0.0" y="110" width="414" height="703"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MLz-HI-AjM">
+                                <rect key="frame" x="0.0" y="88" width="414" height="22"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" changesSelectionAsPrimaryAction="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VGD-g4-Dgp">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="22"/>
+                                        <menu key="menu" id="d2Y-7v-SSm">
+                                            <children>
+                                                <command title="Price Down" id="xGV-EG-coZ"/>
+                                                <command title="Price Up" id="XxQ-pd-5yb"/>
+                                            </children>
+                                        </menu>
+                                        <state key="normal" title="Filtrerdssd" image="slider.horizontal.3" catalog="system"/>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="mAV-wB-ZyO"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="mGe-Gr-ZFL" firstAttribute="leading" secondItem="mAV-wB-ZyO" secondAttribute="leading" id="Ccd-7B-xAs"/>
+                            <constraint firstItem="mAV-wB-ZyO" firstAttribute="trailing" secondItem="MLz-HI-AjM" secondAttribute="trailing" id="Ndr-po-9cq"/>
+                            <constraint firstItem="MLz-HI-AjM" firstAttribute="top" secondItem="mAV-wB-ZyO" secondAttribute="top" id="XSA-br-6l5"/>
+                            <constraint firstItem="mAV-wB-ZyO" firstAttribute="bottom" secondItem="mGe-Gr-ZFL" secondAttribute="bottom" id="Zgs-97-wF8"/>
+                            <constraint firstItem="mAV-wB-ZyO" firstAttribute="trailing" secondItem="mGe-Gr-ZFL" secondAttribute="trailing" id="eoW-kd-tNM"/>
+                            <constraint firstItem="MLz-HI-AjM" firstAttribute="leading" secondItem="mAV-wB-ZyO" secondAttribute="leading" id="ke6-0c-w9J"/>
+                            <constraint firstItem="mGe-Gr-ZFL" firstAttribute="top" secondItem="MLz-HI-AjM" secondAttribute="bottom" id="s0M-v1-9BL"/>
+                        </constraints>
+                    </view>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="searchResultsTableView" destination="mGe-Gr-ZFL" id="qMo-qP-kkq"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="V4H-xg-Eq3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2871" y="801"/>
         </scene>
         <!--No Internet View Controller-->
         <scene sceneID="w9O-an-V2R">
@@ -323,6 +377,7 @@
         <image name="homekit" catalog="system" width="128" height="106"/>
         <image name="person" catalog="system" width="128" height="117"/>
         <image name="person.circle" catalog="system" width="128" height="121"/>
+        <image name="slider.horizontal.3" catalog="system" width="128" height="100"/>
         <image name="wifi.exclamationmark" catalog="system" width="128" height="96"/>
         <systemColor name="linkColor">
             <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
