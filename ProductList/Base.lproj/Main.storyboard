@@ -204,6 +204,82 @@
             </objects>
             <point key="canvasLocation" x="1855.072463768116" y="800.89285714285711"/>
         </scene>
+        <!--No Internet View Controller-->
+        <scene sceneID="w9O-an-V2R">
+            <objects>
+                <viewController storyboardIdentifier="NoInternetViewController" id="7eu-zB-eKl" customClass="NoInternetViewController" customModule="ProductList" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="DmN-OF-H8Q">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ой! Сломался интернет" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yxh-Iq-OrC">
+                                <rect key="frame" x="82.5" y="418" width="249.5" height="26.5"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Проверьте Ваши настройки досутпа к интернету или попробуйте зайти позже" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="80X-p9-d6g">
+                                <rect key="frame" x="20" y="464.5" width="374" height="43"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <color key="textColor" systemColor="systemGrayColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wifi.exclamationmark" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="rch-yu-46N">
+                                <rect key="frame" x="157" y="299" width="100" height="97"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="JEw-za-sdf"/>
+                                    <constraint firstAttribute="width" secondItem="rch-yu-46N" secondAttribute="height" multiplier="1:1" id="dHb-HM-ywt"/>
+                                </constraints>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Bl0-Z4-KAU">
+                                <rect key="frame" x="0.0" y="812" width="414" height="40"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y6U-hg-7Ox">
+                                        <rect key="frame" x="20" y="0.0" width="374" height="40"/>
+                                        <color key="backgroundColor" systemColor="linkColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="qHc-g1-a7A"/>
+                                        </constraints>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="ОБНОВИТЬ"/>
+                                        <connections>
+                                            <action selector="updateConnectionPressed:" destination="7eu-zB-eKl" eventType="touchUpInside" id="upt-wN-A28"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="Y6U-hg-7Ox" firstAttribute="leading" secondItem="Bl0-Z4-KAU" secondAttribute="leading" constant="20" id="bFr-F8-y6z"/>
+                                    <constraint firstAttribute="trailing" secondItem="Y6U-hg-7Ox" secondAttribute="trailing" constant="20" id="eoe-2B-IwU"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="W4W-fu-jqt"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="rch-yu-46N" firstAttribute="top" relation="greaterThanOrEqual" secondItem="W4W-fu-jqt" secondAttribute="top" constant="24" id="1sl-gU-sIT"/>
+                            <constraint firstItem="Yxh-Iq-OrC" firstAttribute="centerX" secondItem="rch-yu-46N" secondAttribute="centerX" id="HfX-TU-HRW"/>
+                            <constraint firstItem="80X-p9-d6g" firstAttribute="centerX" secondItem="Yxh-Iq-OrC" secondAttribute="centerX" id="Iu7-zl-3Tx"/>
+                            <constraint firstItem="Yxh-Iq-OrC" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="W4W-fu-jqt" secondAttribute="leading" constant="20" id="KCB-5o-FCt"/>
+                            <constraint firstItem="Bl0-Z4-KAU" firstAttribute="leading" secondItem="W4W-fu-jqt" secondAttribute="leading" id="W09-2z-A67"/>
+                            <constraint firstItem="rch-yu-46N" firstAttribute="centerX" secondItem="DmN-OF-H8Q" secondAttribute="centerX" id="ais-qP-n0Q"/>
+                            <constraint firstItem="80X-p9-d6g" firstAttribute="top" secondItem="Yxh-Iq-OrC" secondAttribute="bottom" constant="20" id="dpZ-gT-E5v"/>
+                            <constraint firstItem="W4W-fu-jqt" firstAttribute="bottom" secondItem="Bl0-Z4-KAU" secondAttribute="bottom" constant="10" id="fLj-yu-MsS"/>
+                            <constraint firstItem="80X-p9-d6g" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="W4W-fu-jqt" secondAttribute="leading" constant="20" id="m9a-ty-xRR"/>
+                            <constraint firstItem="W4W-fu-jqt" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="80X-p9-d6g" secondAttribute="trailing" constant="20" id="naY-R1-Mgm"/>
+                            <constraint firstItem="Yxh-Iq-OrC" firstAttribute="top" secondItem="rch-yu-46N" secondAttribute="bottom" constant="20" id="syV-sJ-jOZ"/>
+                            <constraint firstItem="rch-yu-46N" firstAttribute="centerY" secondItem="DmN-OF-H8Q" secondAttribute="centerY" constant="-100" id="tSo-CG-Ogd"/>
+                            <constraint firstItem="W4W-fu-jqt" firstAttribute="trailing" secondItem="Bl0-Z4-KAU" secondAttribute="trailing" id="zAX-kp-5CC"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="updateConnectionButton" destination="Y6U-hg-7Ox" id="mUz-oV-HMV"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jV0-SN-i3f" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2871.0144927536235" y="93.75"/>
+        </scene>
         <!--Profile-->
         <scene sceneID="Hk3-TF-stx">
             <objects>
@@ -247,11 +323,18 @@
         <image name="homekit" catalog="system" width="128" height="106"/>
         <image name="person" catalog="system" width="128" height="117"/>
         <image name="person.circle" catalog="system" width="128" height="121"/>
+        <image name="wifi.exclamationmark" catalog="system" width="128" height="96"/>
+        <systemColor name="linkColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGray3Color">
             <color red="0.7803921568627451" green="0.7803921568627451" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGrayColor">
+            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

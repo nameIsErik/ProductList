@@ -6,35 +6,43 @@ class HomeViewController: UIViewController {
     var productArray: [Product]?
     let networkService = NetworkService.shared
     let databaseHelper = DatabaseHelper()
-    
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    let urlString = "https://fakestoreapi.com/products"
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.title = "Product List"
         setupTableView()
         
-        let urlString = "https://fakestoreapi.com/products"
+        
         if NetworkMonitor.shared.isConnected {
-            NetworkDataFetcher().fetchProducts(urlString: urlString) { [weak self] response in
-                guard let response = response else { return }
-                self?.productArray = response
-                
-                guard let productArray = self?.productArray else { return }
-                
-                self?.databaseHelper.saveProductsToDB(products: productArray)
-                
-                DispatchQueue.main.async {
-                    self?.productListTableView.reloadData()
-                }
-            }
+           updateData()
         } else {
-            
-            guard let dataFromLastSession = DatabaseHelper().getDataFromLastSession() else { return }
-                    
-            productArray = databaseHelper.convertToProducts(from: dataFromLastSession)
-            productListTableView.reloadData()
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            guard let vc = storyboard.instantiateViewController(withIdentifier: NoInternetViewController.identifier) as? NoInternetViewController else { return }
+            vc.modalTransitionStyle = .crossDissolve
+            vc.modalPresentationStyle = .fullScreen
+            vc.configure(dismissAction: { [weak self] in
+                self?.updateData()
+            })
+            self.present(vc, animated: true, completion: nil)
         }
+    }
+    
+    func updateData() {
+        NetworkDataFetcher().fetchProducts(urlString: urlString) { [weak self] response in
+            guard let response = response else { return }
+            self?.productArray = response
+            
+            guard let productArray = self?.productArray else { return }
+            
+            self?.databaseHelper.saveProductsToDB(products: productArray)
+            
+            DispatchQueue.main.async {
+                self?.productListTableView.reloadData()
+            }
+        }
+
     }
         
     func setCategory(category: Category) {
@@ -57,7 +65,7 @@ class HomeViewController: UIViewController {
 
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return productArray?.count ?? 1
+        return productArray?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
