@@ -4,12 +4,9 @@ class SearchViewConroller: UIViewController {
 
     @IBOutlet weak var categoryTableView: UITableView!
     
-    let searchController = UISearchController(searchResultsController: nil)
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Category"
-        navigationItem.searchController = searchController
         setupTableView()
         
     }

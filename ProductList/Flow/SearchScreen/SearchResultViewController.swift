@@ -3,6 +3,7 @@ import UIKit
 class SearchResultViewController: UIViewController {
     static let identifier = String(describing: SearchResultViewController.self)
     @IBOutlet weak var searchResultsTableView: UITableView!
+    @IBOutlet weak var filterButton: UIButton!
     
     var products: [Product]?
     var urlString: String?
@@ -14,12 +15,36 @@ class SearchResultViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        var myMenu = UIMenu(title: "", children: [
+            UIAction(title: "Price: Low to High",  handler: { [weak self] press in
+                self?.products = self?.products?.sorted {
+                    $0.price < $1.price
+                }
+                
+                self?.searchResultsTableView.reloadData()
+        }),
+            UIAction(title: "Price: High to Low",  handler: { [weak self] press in
+                self?.products = self?.products?.sorted {
+                    $0.price > $1.price
+                }
+                
+                self?.searchResultsTableView.reloadData()
+
+            })
+        
+        ])
+        filterButton.menu = myMenu
+        filterButton.showsMenuAsPrimaryAction = true
+        
         setupTableView()
         if let urlString = urlString {
             NetworkDataFetcher().fetchProducts(urlString: urlString) { [weak self] response in
                 guard let response = response else { return }
                 self?.products = response
-                
+                self?.products = self?.products?.sorted {
+                    $0.price < $1.price
+                }
                 
                 DispatchQueue.main.async {
                     self?.searchResultsTableView.reloadData()

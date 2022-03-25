@@ -217,23 +217,48 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="mGe-Gr-ZFL">
-                                <rect key="frame" x="0.0" y="110" width="414" height="703"/>
+                                <rect key="frame" x="0.0" y="128" width="414" height="685"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
-                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MLz-HI-AjM">
-                                <rect key="frame" x="0.0" y="88" width="414" height="22"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="MLz-HI-AjM">
+                                <rect key="frame" x="0.0" y="88" width="414" height="40"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" changesSelectionAsPrimaryAction="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VGD-g4-Dgp">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="22"/>
-                                        <menu key="menu" id="d2Y-7v-SSm">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Xh-Mg-yVO">
+                                        <rect key="frame" x="0.0" y="0.0" width="20" height="40"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="20" id="H8o-I7-k0e"/>
+                                        </constraints>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" changesSelectionAsPrimaryAction="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VGD-g4-Dgp">
+                                        <rect key="frame" x="20" y="0.0" width="200" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="0wv-qC-SdS"/>
+                                            <constraint firstAttribute="height" constant="40" id="6ti-nn-A6f"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <inset key="titleEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="-1"/>
+                                        <menu key="menu" title="Filter" id="d2Y-7v-SSm">
+                                            <menuOptions key="menuOptions" singleSelection="YES"/>
                                             <children>
                                                 <command title="Price Down" id="xGV-EG-coZ"/>
                                                 <command title="Price Up" id="XxQ-pd-5yb"/>
                                             </children>
                                         </menu>
-                                        <state key="normal" title="Filtrerdssd" image="slider.horizontal.3" catalog="system"/>
+                                        <state key="normal" title="FIlter" image="slider.horizontal.3" catalog="system">
+                                            <color key="titleColor" systemColor="systemGrayColor"/>
+                                        </state>
                                     </button>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pZz-Pf-Ajy">
+                                        <rect key="frame" x="220" y="0.0" width="194" height="40"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    </view>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstItem="2Xh-Mg-yVO" firstAttribute="height" secondItem="VGD-g4-Dgp" secondAttribute="height" id="0Yd-4p-SJ3"/>
+                                    <constraint firstItem="pZz-Pf-Ajy" firstAttribute="height" secondItem="VGD-g4-Dgp" secondAttribute="height" id="ADb-Yy-hqv"/>
+                                </constraints>
                             </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="mAV-wB-ZyO"/>
@@ -251,12 +276,13 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="filterButton" destination="VGD-g4-Dgp" id="RRC-qL-70I"/>
                         <outlet property="searchResultsTableView" destination="mGe-Gr-ZFL" id="qMo-qP-kkq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V4H-xg-Eq3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2871" y="801"/>
+            <point key="canvasLocation" x="2869.5652173913045" y="800.89285714285711"/>
         </scene>
         <!--No Internet View Controller-->
         <scene sceneID="w9O-an-V2R">
