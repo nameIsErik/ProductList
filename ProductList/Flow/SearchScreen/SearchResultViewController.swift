@@ -92,6 +92,19 @@ extension SearchResultViewController: UITableViewDelegate, UITableViewDataSource
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let productArray = products else { return }
+        
+        let product = productArray[indexPath.row]
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        guard let vc = storyboard.instantiateViewController(withIdentifier: ProductDetailViewController.identifier) as? ProductDetailViewController else {
+            return
+        }
+        
+        vc.configure(with: product)
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 50
     }
